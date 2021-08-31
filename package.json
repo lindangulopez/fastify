@@ -1,0 +1,24 @@
+{
+  "name": "fastify",
+  "version": "1.0.0",
+  "description": "nodeJS - MongoDB",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindangulopez/fastify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lindangulopez/fastify/issues"
+  },
+  "homepage": "https://github.com/lindangulopez/fastify#readme",
+  "dependencies": {
+    "fastify": "^3.20.2",
+    "nodemon": "^2.0.12"
+  }
+}
