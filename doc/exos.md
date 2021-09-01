@@ -82,15 +82,19 @@ shortDescription: string
 
 ## 4. Les utilisateurs
 
-1. Créer un fichier `src/schemas/user.js`, ajouter un schema
-   avec les champs suivant:
+1. Dans le fichier src/index.js, dans la route
+   `POST /articles`, ajouter un schema au body de
+   notre request qui respécte les caractéristiques
+   suivantes :
 
 ```
-*email: string
-*password: string
-firstname: string
-lastname: string
-image: string
+*title: string
+*description: string
+*images: [ string ]
+shortDescription: string
+*author:
+  *firstname: string
+  *lastname: string
 ```
 
 2. Importer ce schemas depuis notre `src/index.js`

@@ -9,7 +9,7 @@ GET http://localhost:8080/categories
 POST http://localhost:8080/categories
 Content-Type: application/json
 
-{ "titre": "bricolage" }
+{ "title": "brico" }
 
 ###
 
@@ -25,3 +25,4 @@ Content-Type: application/json
   "description": "Description",
   "content": "Lorem ipsum"
 }
+

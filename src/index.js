@@ -6,6 +6,8 @@
 const fastify = require('fastify')
 // On importe la librairie mongodb
 const mongodb = require('mongodb')
+// On importe le plugin routes/home
+const home = require('./routes/home')
 
 async function main() {
   // Créer une application fastify.
@@ -21,14 +23,15 @@ async function main() {
   // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
   const db = connection.db('blog')
 
-  // Création d'une route GET sur le chemin "/"
-  app.get('/', async () => {
-    // On récupére toutes les données de la collection test de notre base de données
-    // blog
-    const data = await db.collection('test').find().toArray()
+  // La décoration permet de rendre accessible
+  // n'importe valeur en utilisant directement
+  // l'application.
+  // Ici, app.db retourneras toujours la base de données
+  app.decorate('db', db)
 
-    return data
-  })
+  // On connécte le plugin grace à la fonction "register"
+  // routes home à l'application
+  app.register(home)
 
   // Récupére les catégories
   app.get('/categories', async () => {
@@ -39,24 +42,40 @@ async function main() {
   })
 
   // Création d'une catégorie
-  app.post('/categories', async (request, reply) => {
-    const category = request.body
+  app.post(
+    '/categories',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+            },
+          },
+          required: ['title'],
+        },
+      },
+    },
+    async (request, reply) => {
+      const category = request.body
 
-    // On insére la catégorie
-    const result = await db.collection('categories').insertOne(category)
+      // On insére la catégorie
+      const result = await db.collection('categories').insertOne(category)
 
-    // On récupére la catégorie qui vient d'être enregistré
-    const insertedCategory = await db.collection('categories').findOne({
-      _id: mongodb.ObjectId(result.insertedId),
-    })
+      // On récupére la catégorie qui vient d'être enregistré
+      const insertedCategory = await db.collection('categories').findOne({
+        _id: mongodb.ObjectId(result.insertedId),
+      })
 
-    // Changement du status code pour être 201
-    reply.code(201)
-    // Ajouter un header http
-    reply.header('Inserted-Id', result.insertedId)
+      // Changement du status code pour être 201
+      reply.code(201)
+      // Ajouter un header http
+      reply.header('Inserted-Id', result.insertedId)
 
-    return insertedCategory
-  })
+      return insertedCategory
+    }
+  )
 
   // Récupére les articles
   app.get('/articles', async () => {
@@ -68,24 +87,46 @@ async function main() {
   })
 
   // Création d'un article
-  app.post('/articles', async (request, reply) => {
-    // Nous récupérons l'article depuis le corps de la requête
-    const article = request.body
+  app.post(
+    '/articles',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['title', 'description', 'content'],
+          properties: {
+            title: {
+              type: 'string',
+            },
+            description: {
+              type: 'string',
+            },
+            content: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      // Nous récupérons l'article depuis le corps de la requête
+      const article = request.body
 
-    // enregistrement de l'article dans la base de données
-    const result = await db.collection('articles').insertOne(article)
+      // enregistrement de l'article dans la base de données
+      const result = await db.collection('articles').insertOne(article)
 
-    // Récupération de l'article enregistré en base de données
-    const insertedArticle = await db.collection('articles').findOne({
-      _id: mongodb.ObjectId(result.insertedId),
-    })
+      // Récupération de l'article enregistré en base de données
+      const insertedArticle = await db.collection('articles').findOne({
+        _id: mongodb.ObjectId(result.insertedId),
+      })
 
-    // Nous spécifions un code HTTP 201 Created
-    reply.code(201)
+      // Nous spécifions un code HTTP 201 Created
+      reply.code(201)
 
-    // Nous retournons l'article nouvellement créé
-    return insertedArticle
-  })
+      // Nous retournons l'article nouvellement créé
+      return insertedArticle
+    }
+  )
 
   // On lance le serveur sur le port 8080
   app.listen(8080)
