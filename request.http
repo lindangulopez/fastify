@@ -6,10 +6,25 @@ GET http://localhost:8080/categories
 
 ###
 
+GET http://localhost:8080/categories/612f39d66e0b57ef8d629227
+
+###
+
+DELETE http://localhost:8080/categories/612f39d66e0b57ef8d629227
+
+###
+
 POST http://localhost:8080/categories
 Content-Type: application/json
 
 { "title": "brico" }
+
+###
+
+PATCH http://localhost:8080/categories/61307c3792357d097150b1ab
+Content-Type: application/json
+
+{ "title": "brico test" }
 
 ###
 
@@ -21,8 +36,16 @@ POST http://localhost:8080/articles
 Content-Type: application/json
 
 {
-  "title": "Mes articles fastify",
+  "title": "Mon premier article",
   "description": "Description",
   "content": "Lorem ipsum"
 }
 
+###
+
+PATCH http://localhost:8080/articles/612f51d21dae63dd4e62ce52
+Content-Type: application/json
+
+{
+  "description": "Nouvelle Description"
+}
