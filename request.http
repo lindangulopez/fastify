@@ -2,7 +2,7 @@ GET http://localhost:8080
 
 ###
 
-GET http://localhost:8080/categories
+GET http://localhost:8080/categories?limit=5&skip=5
 
 ###
 
@@ -38,7 +38,8 @@ Content-Type: application/json
 {
   "title": "Mon premier article",
   "description": "Description",
-  "content": "Lorem ipsum"
+  "content": "Lorem ipsumLorem ipsumLorem ipsumLorem ipsum",
+  "categoryId": "612f7596c7b151a333a5c815"
 }
 
 ###

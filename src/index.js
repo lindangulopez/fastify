@@ -1,6 +1,5 @@
 //  'mongodb+srv://blog:blog@cluster0.ma5ei.mongodb.net/blog?retryWrites=true&w=majority'
 // 'mongodb+srv://blog:blog@cluster0.78yvz.mongodb.net/blog?retryWrites=true&w=majority'
-// On importe la librairie fastify
 // On importe la librairie dotenv, qui nous permet
 // de lire le fichier de configuration ".env"
 const dotenv = require('dotenv')
@@ -54,16 +53,9 @@ async function main() {
   app.register(categories)
   app.register(articles)
 
-  /**
-   * 1. Créer les routes suivantes
-   *    - GET /categories/:id
-   *    - DELETE /categories/:id
-   *    - GET /articles/:id
-   *    - DELETE /articles/:id
-   */
-
   // On lance le serveur sur le port 8080
   app.listen(process.env.PORT, process.env.HOST)
 }
 
 main()
+
