@@ -1,6 +1,6 @@
-const mongodb = require('mongodb')
+import * as mongodb from 'mongodb'
 
-module.exports = async (app) => {
+export default async (app) => {
   // Récupére les catégories
   app.get(
     '/categories',
@@ -20,6 +20,12 @@ module.exports = async (app) => {
       },
     },
     async (request) => {
+      // Demande à ce que l'utilisateur soit authentifié
+      await request.jwtVerify()
+
+      // récupérer l'utilisateur ?
+      console.log(request.user)
+
       // Récupération de toutes les categories
       const categories = await app.db
         .collection('categories')

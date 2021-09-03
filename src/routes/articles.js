@@ -1,6 +1,6 @@
-const mongodb = require('mongodb')
+import * as mongodb from 'mongodb'
 
-module.exports = async (app) => {
+export default async (app) => {
   // Récupére les articles
   app.get('/articles', async () => {
     // Récupération des articles de la collection articles
@@ -9,7 +9,7 @@ module.exports = async (app) => {
     // categories
     const data = []
 
-    for (article of articles) {
+    for (let article of articles) {
       // Si je na'ai pas de category ID je retourne
       // l'article tel quel
       if (!article.categoryId) {

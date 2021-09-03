@@ -3,24 +3,26 @@
   "version": "1.0.0",
   "description": "Ce projet contient un tutorielle pour nodejs et mongodb.",
   "main": "src/index.js",
+  "type": "module",
   "directories": {
     "doc": "doc"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js",
-    "setup-database": "node src/setup-database.js"
+    "setup-database": "node src/setup-database.mjs",
+    "new-module": "node doc/new-module.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Djeg/tuto-nodejs-mongo.git"
+    "url": "git+https://github.com/lindangulopez/fastify"
   },
-  "author": "Linda",
+  "author": "David Jegat",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Djeg/tuto-nodejs-mongo/issues"
+    "url": "https://github.com/lindangulopez/fastify/issues"
   },
-  "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
+  "homepage": "https://github.com/lindangulopez/fastify#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
     "fastify": "^3.20.2",
