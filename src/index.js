@@ -1,11 +1,25 @@
-//  'mongodb+srv://blog:blog@cluster0.ma5ei.mongodb.net/blog?retryWrites=true&w=majority'
-// 'mongodb+srv://blog:blog@cluster0.78yvz.mongodb.net/blog?retryWrites=true&w=majority'
 // On importe la librairie dotenv, qui nous permet
 // de lire le fichier de configuration ".env"
 const dotenv = require('dotenv')
 
 // On demande à dotenv de lire notre fichier ".env"
 dotenv.config()
+
+/**
+ * Exo Authentification
+ * 1. Installer le plugin "fastify-jwt" (npm install fastify-jwt)
+ * 2. Dans index.js, nous importons (avec require) le plugin fastify-jwt
+ * 3. Dans index.js, nous enregistrons le plugin:
+ *    app.register(fastifyJwt, { secret: 'clefs secrete' })
+ * 4. Dans routes/users.js, créer la route POST /users/token qui recoie
+ *    dans le body les données suivante :
+ *    { email: string, password: string }
+ * 5. Récupérer l'utilisateur qui correspond à l'email et au mot de passe
+ *    (gérer le cas ou les données ne sont pas correct)
+ * 6. Retourner l'objet JSON suivant :
+ *    { token: app.jwt.sign(user) }
+ * 7. Tester avec le fichier request.http
+ */
 
 // On importe la librairie fastify
 const fastify = require('fastify')
@@ -17,6 +31,8 @@ const home = require('./routes/home')
 const categories = require('./routes/categories')
 // On importe le plugin routes/articles
 const articles = require('./routes/articles')
+// On importe le plugin routes/users
+const users = require('./routes/users')
 
 async function main() {
   // Créer une application fastify.
@@ -52,10 +68,10 @@ async function main() {
   app.register(home)
   app.register(categories)
   app.register(articles)
+  app.register(users)
 
   // On lance le serveur sur le port 8080
   app.listen(process.env.PORT, process.env.HOST)
 }
 
 main()
-

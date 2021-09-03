@@ -38,8 +38,8 @@ Content-Type: application/json
 {
   "title": "Mon premier article",
   "description": "Description",
-  "content": "Lorem ipsumLorem ipsumLorem ipsumLorem ipsum",
-  "categoryId": "612f7596c7b151a333a5c815"
+  "content": "Lorem ipsum",
+  "categoryId": "612f423b58ca142762a460b3"
 }
 
 ###
@@ -50,3 +50,17 @@ Content-Type: application/json
 {
   "description": "Nouvelle Description"
 }
+
+###
+
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "john"
+}
+
+###
+
+GET http://localhost:8080/users
